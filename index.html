@@ -29,7 +29,7 @@
     100% {background-position:0% 50%;}
   }
 
-  /* Opening page styles */
+  /* Opening page */
   #openingPage {
     position: fixed;
     inset: 0;
@@ -55,45 +55,63 @@
     animation: glow 2.5s ease-in-out infinite alternate;
   }
 
-  /* Bow styling using CSS */
+  /* Realistic CSS bow */
   .bow {
     position: relative;
-    width: 150px;
+    width: 180px;
     height: 120px;
-    background: #ff48c4;
-    border-radius: 80px 80px 60px 60px / 100px 100px 80px 80px;
+  }
+  .bow .loop {
+    position: absolute;
+    top: 20px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff4da6, #e60073);
+    border-radius: 60% 40% 40% 60% / 50% 60% 40% 50%;
     box-shadow:
-      0 0 30px #ff79c6,
-      0 0 45px #ff48c4,
-      0 0 60px #ff1eaa;
-    cursor: pointer;
+      0 0 15px #ff79c6,
+      0 0 25px #ff48c4,
+      0 0 30px #ff1eaa;
+    transform-origin: center;
     transition: transform 0.3s ease;
   }
-  .bow:hover {
-    transform: scale(1.15) rotate(5deg);
+  .bow .loop.left {
+    left: 0;
+    transform: rotate(-25deg);
   }
-
-  /* Bow center knot */
-  .bow::before {
-    content: '';
+  .bow .loop.right {
+    right: 0;
+    transform: rotate(25deg);
+  }
+  .bow .knot {
     position: absolute;
-    top: 40px;
+    top: 45px;
     left: 50%;
-    width: 40px;
-    height: 40px;
-    background: #d63384;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #e60073 60%, #b20057);
     border-radius: 50%;
-    transform: translateX(-50%);
     box-shadow:
-      0 0 15px #ff1eaa,
-      inset 0 0 10px #ff79c6;
+      0 0 20px #ff1eaa,
+      inset 0 0 12px #ff79c6;
+    transform: translateX(-50%);
+  }
+  .bow:hover .loop.left {
+    transform: rotate(-15deg) scale(1.15);
+  }
+  .bow:hover .loop.right {
+    transform: rotate(15deg) scale(1.15);
+  }
+  .bow:hover .knot {
+    box-shadow:
+      0 0 35px #ff1eaa,
+      inset 0 0 20px #ff79c6;
   }
 
   /* Fade out animation */
   .fadeOut {
     animation: fadeOut 1s forwards;
   }
-
   @keyframes fadeOut {
     to {opacity: 0; visibility: hidden;}
   }
@@ -113,7 +131,7 @@
     }
   }
 
-  /* Main content container */
+  /* Main container */
   .container {
     max-width: 800px;
     background-color: #fff0f5cc;
@@ -125,9 +143,8 @@
     z-index: 2;
     opacity: 0;
     animation: fadeIn 2.5s ease forwards 1s;
-    display: none; /* hide initially */
+    display: none; /* hidden initially */
   }
-
   @keyframes fadeIn {
     to {opacity: 1;}
   }
@@ -144,7 +161,6 @@
   .buttons {
     text-align: center;
   }
-
   button {
     background: #ff48c4;
     color: white;
@@ -163,89 +179,110 @@
     overflow: hidden;
     transition: 0.3s ease;
   }
-
   button:hover {
     background: #ff1eaa;
   }
 
-  /* Heart floating container for Ammulu */
+  /* Heart container with upward flowing text */
   .heart-floating-container {
     position: fixed;
-    bottom: -200px;
+    bottom: -180px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
     height: 150px;
     pointer-events: none;
     z-index: 3;
-    animation: floatUp 12s linear infinite;
+    overflow: visible;
   }
 
-  @keyframes floatUp {
-    0% {
-      bottom: -200px;
-      opacity: 0;
-      transform: translateX(-50%) scale(0.7);
-    }
-    10% {
-      opacity: 1;
-    }
-    100% {
-      bottom: 110vh;
-      opacity: 0;
-      transform: translateX(-50%) scale(1.2);
-    }
-  }
-
-  /* Heart shape with letters inside */
-  .heart-shape {
-    position: relative;
-    width: 150px;
-    height: 135px;
-    margin: auto;
-    background:
-      radial-gradient(circle at 30% 30%, #ff1eaa 30%, transparent 31%),
-      radial-gradient(circle at 70% 30%, #ff1eaa 30%, transparent 31%),
-      linear-gradient(to bottom, #ff1eaa 60%, transparent 61%);
-    background-repeat: no-repeat;
-    background-size: 60px 60px, 60px 60px, 150px 120px;
-    clip-path: polygon(
-      50% 0%,
-      85% 25%,
-      100% 60%,
-      75% 100%,
-      50% 85%,
-      25% 100%,
-      0% 60%,
-      15% 25%
-    );
-  }
-
-  /* Letters arranged in the heart shape */
-  .heart-letter {
-    position: absolute;
+  /* Animate continuous upward scroll */
+  .scroll-text {
     font-family: 'Dancing Script', cursive;
     font-size: 2.8rem;
-    font-weight: bold;
-    color: white;
+    font-weight: 700;
+    color: #ff48c4;
     text-shadow: 0 0 8px #ff79c6, 0 0 12px #ff48c4;
+    white-space: nowrap;
+    animation: scrollUp 8s linear infinite;
     user-select: none;
   }
-  /* Position letters inside heart */
-  .heart-letter:nth-child(1) { top: 20px; left: 50%; transform: translateX(-50%); } /* A */
-  .heart-letter:nth-child(2) { top: 50px; left: 20px; } /* m */
-  .heart-letter:nth-child(3) { top: 50px; left: 80px; } /* m */
-  .heart-letter:nth-child(4) { top: 80px; left: 10px; } /* u */
-  .heart-letter:nth-child(5) { top: 80px; left: 95px; } /* l */
-  .heart-letter:nth-child(6) { top: 110px; left: 50%; transform: translateX(-50%); } /* u */
+  /* repeated text for smooth loop */
+  .scroll-text span {
+    margin: 0 10px;
+  }
 
+  @keyframes scrollUp {
+    0% {transform: translateY(100%);}
+    100% {transform: translateY(-100%);}
+  }
+
+  /* SVG heart container */
+  .heart-svg-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    pointer-events: none;
+    z-index: 4;
+    filter: drop-shadow(0 0 5px #ff48c4);
+  }
+
+  /* Sparkles around heart */
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #fff0ff;
+    box-shadow:
+      0 0 8px 2px #ff79c6,
+      0 0 10px 4px #ff48c4;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 6px #ff79c6);
+    animation: sparkleAnim 3s ease-in-out infinite;
+    opacity: 0.8;
+  }
+  @keyframes sparkleAnim {
+    0%, 100% {opacity: 0.8; transform: scale(1);}
+    50% {opacity: 0; transform: scale(1.7);}
+  }
+
+  /* Confetti container */
+  #confetti-container {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 10000;
+    overflow: visible;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .container {
+      margin: 40px 20px 60px;
+      padding: 30px 20px;
+    }
+    #openingPage h2 {
+      font-size: 2.8rem;
+    }
+    .bow {
+      width: 140px;
+      height: 90px;
+    }
+  }
 </style>
 </head>
 <body>
   <!-- Opening Page -->
   <div id="openingPage" role="dialog" aria-modal="true" aria-label="Opening page with bow, click to open letter">
     <h2>For My Ammulu 💖</h2>
-    <div class="bow" aria-label="Click the bow to open the letter" role="button" tabindex="0"></div>
+    <div class="bow" aria-label="Click the bow to open the letter" role="button" tabindex="0">
+      <div class="loop left"></div>
+      <div class="loop right"></div>
+      <div class="knot"></div>
+    </div>
     <p style="color:#d63384; margin-top:20px; font-style: italic;">Click the bow to open your letter</p>
   </div>
 
@@ -266,49 +303,57 @@ Taruvatha nuvvu edhi anukunte adhi.
     <div class="buttons" role="group" aria-label="Response buttons">
       <button class="yes" aria-label="Yes button" id="yesBtn">Yes 💖</button>
       <button class="yes" aria-label="Yes Yes button" id="yesYesBtn">Yes Yes 💘</button>
+      <button id="downloadBtn" aria-label="Download letter as PDF">Download PDF 📄</button>
     </div>
   </div>
 
-  <div class="heart-floating-container" aria-hidden="true">
-    <div class="heart-shape" role="img" aria-label="Heart shape with Ammulu letters">
-      <span class="heart-letter">A</span>
-      <span class="heart-letter">m</span>
-      <span class="heart-letter">m</span>
-      <span class="heart-letter">u</span>
-      <span class="heart-letter">l</span>
-      <span class="heart-letter">u</span>
+  <!-- Heart with flowing Ammulu text -->
+  <div class="heart-floating-container" aria-hidden="true" aria-label="Decorative heart with Ammulu text">
+    <svg class="heart-svg-container" viewBox="0 0 32 29.6" aria-hidden="true" focusable="false">
+      <path fill="#ff48c4" d="M23.6,0c-2.9,0-5.4,1.8-6.6,4.3C15.8,1.8,13.3,0,10.4,0C4.7,0,0,4.7,0,10.4
+        c0,6.1,6.7,11.5,16,19.2c9.3-7.7,16-13.1,16-19.2C32,4.7,27.3,0,23.6,0z"/>
+    </svg>
+    <div class="scroll-text" aria-label="Flowing Ammulu text">
+      <span>Ammulu</span><span>Ammulu</span><span>Ammulu</span><span>Ammulu</span><span>Ammulu</span><span>Ammulu</span>
     </div>
+
+    <!-- Sparkles -->
+    <div class="sparkle" style="top: 30px; left: 40px; animation-delay: 0s;"></div>
+    <div class="sparkle" style="top: 100px; left: 90px; animation-delay: 1.2s;"></div>
+    <div class="sparkle" style="top: 60px; left: 20px; animation-delay: 2.3s;"></div>
+    <div class="sparkle" style="top: 120px; left: 60px; animation-delay: 0.8s;"></div>
+    <div class="sparkle" style="top: 50px; left: 110px; animation-delay: 1.8s;"></div>
   </div>
 
+  <!-- Confetti container -->
+  <div id="confetti-container"></div>
+
+  <!-- Audio sources - tested royalty free romantic tracks -->
   <audio id="yesMusic" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/18/audio_b1f3d90d32.mp3?filename=romantic-love-17846.mp3" type="audio/mp3" />
+    <source src="https://cdn.pixabay.com/download/audio/2022/07/19/audio_f5a9c247b3.mp3?filename=romantic-piano-5575.mp3" type="audio/mp3" />
   </audio>
 
   <audio id="yesYesMusic" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/18/audio_82b9c43892.mp3?filename=romantic-guitar-12469.mp3" type="audio/mp3" />
+    <source src="https://cdn.pixabay.com/download/audio/2022/08/24/audio_4e50979db9.mp3?filename=romantic-guitar-7785.mp3" type="audio/mp3" />
   </audio>
 
 <script>
-  // Opening page and bow click
   const openingPage = document.getElementById('openingPage');
   const container = document.querySelector('.container');
   const bow = document.querySelector('.bow');
 
   function openLetter() {
-    // Fade out opening page
     openingPage.classList.add('fadeOut');
-    // After fade out, hide it and show container
     setTimeout(() => {
       openingPage.style.display = 'none';
       container.style.display = 'block';
-      // Animate container opacity in
       container.style.opacity = 0;
       container.animate([{opacity: 0}, {opacity: 1}], {duration: 2500, fill: 'forwards'});
+      playYesMusic();
     }, 1000);
   }
 
   bow.addEventListener('click', openLetter);
-  // Also open with keyboard (Enter or Space) for accessibility
   bow.addEventListener('keydown', e => {
     if(e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -316,31 +361,114 @@ Taruvatha nuvvu edhi anukunte adhi.
     }
   });
 
-  // Music buttons
   const yesBtn = document.getElementById('yesBtn');
   const yesYesBtn = document.getElementById('yesYesBtn');
-
+  const downloadBtn = document.getElementById('downloadBtn');
   const yesMusic = document.getElementById('yesMusic');
   const yesYesMusic = document.getElementById('yesYesMusic');
 
-  function stopAllMusic() {
-    yesMusic.pause();
-    yesMusic.currentTime = 0;
-    yesYesMusic.pause();
-    yesYesMusic.currentTime = 0;
+  function playYesMusic() {
+    // Play yes music softly at start, paused after bow click
+    yesMusic.volume = 0.2;
+    yesMusic.play().catch(() => {});
   }
 
-  yesBtn.addEventListener('click', () => {
-    stopAllMusic();
-    yesMusic.play();
-    alert("Ammulu...I love you more than anything in this universe.Let's start our roller coaster journey which never ends.");
+  function playConfettiAndMusic(button) {
+    // Play corresponding music and confetti burst
+    if (button === 'yes') {
+      yesYesMusic.pause();
+      yesMusic.currentTime = 0;
+      yesMusic.volume = 0.7;
+      yesMusic.play();
+    } else if (button === 'yesYes') {
+      yesMusic.pause();
+      yesYesMusic.currentTime = 0;
+      yesYesMusic.volume = 0.7;
+      yesYesMusic.play();
+    }
+    confettiBurst();
+  }
+
+  yesBtn.addEventListener('click', () => playConfettiAndMusic('yes'));
+  yesYesBtn.addEventListener('click', () => playConfettiAndMusic('yesYes'));
+
+  // Confetti implementation
+  function confettiBurst() {
+    const container = document.getElementById('confetti-container');
+    for(let i=0; i<100; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = confetti.style.height = Math.random() * 8 + 6 + 'px';
+      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 70%)`;
+      confetti.style.top = '50%';
+      confetti.style.left = '50%';
+      confetti.style.borderRadius = '3px';
+      confetti.style.opacity = 1;
+      confetti.style.pointerEvents = 'none';
+      confetti.style.zIndex = 10000;
+      confetti.style.transform = `translate(-50%, -50%) rotate(${Math.random()*360}deg)`;
+      container.appendChild(confetti);
+
+      // Animate confetti burst outwards
+      const angle = Math.random() * 2 * Math.PI;
+      const radius = 150 + Math.random() * 100;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+
+      confetti.animate([
+        {transform: `translate(-50%, -50%) rotate(${Math.random()*360}deg)`, opacity: 1},
+        {transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${Math.random()*720}deg)`, opacity: 0}
+      ], {
+        duration: 2000 + Math.random() * 1000,
+        easing: 'ease-out',
+        fill: 'forwards'
+      });
+
+      setTimeout(() => container.removeChild(confetti), 3000);
+    }
+  }
+
+  // Download letter as PDF
+  downloadBtn.addEventListener('click', () => {
+    // Use html2canvas and jsPDF for PDF generation (load libraries dynamically)
+    if (!window.jsPDF) {
+      loadScripts([
+        'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+      ], generatePDF);
+    } else {
+      generatePDF();
+    }
   });
 
-  yesYesBtn.addEventListener('click', () => {
-    stopAllMusic();
-    yesYesMusic.play();
-    alert("💞 💞 Ammulu,I Love You So Much Ammulu...Forever yours.");
-  });
+  function loadScripts(urls, callback) {
+    let loaded = 0;
+    urls.forEach(url => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.onload = () => {
+        loaded++;
+        if (loaded === urls.length) callback();
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const letterDiv = document.getElementById('letter');
+    const canvas = await html2canvas(letterDiv, {scale: 2});
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: [canvas.width, canvas.height]
+    });
+    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save('prema_lekha.pdf');
+  }
+
 </script>
 </body>
 </html>
+
